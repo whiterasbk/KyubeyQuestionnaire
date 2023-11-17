@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提交失败</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.css">
+</head>
+<body>
+
+    <div class="container" style="margin: 20px 13px; text-align: center">
+        <div class="ui negative message" >
+
+            <h3>不知怎的, 问卷填写失败了</h3>
+
+            <p>
+                我有一个对这个错误的十分美妙的分析, 这里空白太小, 写不下.
+            </p>
+        </div>
+
+        <div class="ui right floated red right labeled icon button" onclick="redirect()">
+            <i class="right arrow icon"></i>重新答题
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script>
+        function redirect() {
+            window.location.href = 'index.html'
+        }
+    </script>
+</body>
+</html>

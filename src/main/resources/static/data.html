@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据展示</title>
+
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.css">
+</head>
+<body>
+
+    <div class="ui container" style="margin-top: 30px">
+
+        <div id="figure1" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure2" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure3" style="width: 100%; height: 800px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure4" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure5" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure6" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure7" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure8" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure9" style="width: 100%; height: 300px;"></div>
+
+        <div class="ui section divider"></div>
+        <div id="figure10" style="width: 100%; height: 300px;"></div>
+
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.common.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script>
+
+        function makeCommonPieOption(title, name, initData) {
+            return  {
+                title: {
+                    text: title,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left'
+                },
+                series: {
+                    name: name,
+                    type: 'pie',
+                    radius: '50%',
+                    data: initData
+                }
+            }
+        }
+
+        function initChartByID(id) {
+            return echarts.init(document.getElementById(id))
+        }
+
+        function createQ1Chart(containerId) {
+            let myChart = initChartByID(containerId)
+
+            myChart.setOption(makeCommonPieOption('是否玩过电子游戏', '游玩情况', [
+                { value: 1, name: '玩过游戏' },
+                { value: 1, name: '从没玩过游戏' }
+            ]))
+
+            function updateChart(data) {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.played, name: '玩过游戏' },
+                            { value: data.all - data.played, name: '从没玩过游戏' }
+                        ]
+                    }
+                }
+
+                myChart.setOption(newOption)
+            }
+
+            return updateChart
+        }
+
+        function createQ2Chart(containerId) {
+
+            let myChart = initChartByID(containerId)
+
+            myChart.setOption({
+                title: {
+                    text: '游玩频率',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                series: [
+                    {
+                        name: '游玩频率',
+                        type: 'pie',
+                        radius: [40, 80],
+                        center: ['50%', '50%'],
+                        roseType: 'area',
+                        itemStyle: {
+                            borderRadius: 8
+                        },
+                        data: []
+                    }
+                ]
+            })
+
+            function updateChart(data) {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.never, name: '很少，几乎不玩' },
+                            { value: data.seldom, name: '不多，两三个月一次' },
+                            { value: data.monthly, name: '一般般，一个月两三次' },
+                            { value: data.weekly, name: '多一点， 一周几次吧' },
+                            { value: data.daily, name: '一天不打几个小时都手痒痒' },
+                            { value: data.nome, name: '女朋友是什么，有游戏重要吗' }
+                        ]
+                    }
+                }
+
+                myChart.setOption(newOption)
+            }
+
+            return updateChart
+        }
+
+        function createDynamicBarChart(containerId) {
+            let myChart = initChartByID(containerId)
+
+            let option = {
+                title: {
+                    text: '游玩类型',
+                    left: 'center'
+                },
+                grid: {
+                    top: 25,
+                    bottom: 30,
+                    left: 100,
+                    right: 40
+                },
+                xAxis: {
+                    max: 'dataMax',
+                    axisLabel: {
+                        formatter: function (n) {
+                            return Math.round(n) + '';
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    inverse: true,
+                    axisLabel: {
+                        show: true,
+                        fontSize: 14,
+                        formatter: function (value) {
+
+                            let mapping = {
+                                'moba': 'moba/LOL',
+                                'mg': '音游',
+                                'rpg': 'RPG',
+                                'pixel': '像素游戏',
+                                'sandbox': '沙盒游戏',
+                                'threeA': '3A',
+                                'genshin': '米哈游',
+                                'together': '多人合作',
+                                'teri': '恐怖',
+                                'action': '动作冒险',
+                                'chiji': '第三人称射击',
+                                'fps': '第一人称射击',
+                                'ci': '养成游戏',
+                                'fgo': '抽卡游戏',
+                                'chess': '棋牌游戏',
+                                'social': '社交游戏',
+                                'intel': '益智游戏',
+                                'com': '模拟经营',
+                                'run': '跑酷',
+                                'zvp': '策略塔防',
+                                'story': '剧情',
+                                'gg': 'galgame',
+                                'other': '其他',
+                            }
+
+                            return mapping[value];
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'bar',
+                        realtimeSort: true,
+                        itemStyle: {
+                            color: function (param) {
+                                if (param.name === 'threeA')
+                                    return '#953a04'
+                                else if (param.name === 'fgo')
+                                    return '#0a71d8'
+                                else if (param.name === 'rpg')
+                                    return '#930ad8'
+                                else if (param.name === 'pixel')
+                                    return '#ab004e'
+                                else if (param.name === 'action')
+                                    return '#00ea12'
+                                else if (param.name === 'run')
+                                    return '#00acea'
+                                else if (param.name === 'social')
+                                    return '#dc0039'
+                                else if (param.name === 'zvp')
+                                    return '#00fb38'
+                                else if (param.name === 'together')
+                                    return '#2821b2'
+                                else if (param.name === 'ci')
+                                    return '#f84cee'
+                                else if (param.name === 'mg')
+                                    return '#d8b60a'
+                                else if (param.name === 'teri')
+                                    return '#25292c'
+                                else if (param.name === 'story')
+                                    return '#d8410a'
+                                else if (param.name === 'fps')
+                                    return '#c3ef3e'
+                                else if (param.name === 'intel')
+                                    return '#136af6'
+                                else if (param.name === 'com')
+                                    return '#da38f4'
+                                else if (param.name === 'other')
+                                    return '#ece25c'
+                                else if (param.name === 'genshin')
+                                    return '#eff1d3'
+                                else if (param.name === 'chiji')
+                                    return '#68aff3'
+                                else if (param.name === 'chess')
+                                    return '#4f921d'
+                                else if (param.name === 'moba')
+                                    return '#ffd811'
+                                else if (param.name === 'gg')
+                                    return '#0831ff'
+                                else if (param.name === 'sandbox')
+                                    return '#00a410'
+                            }
+                        },
+                        label: {
+                            show: true,
+                            precision: 0,
+                            position: 'right',
+                            valueAnimation: true,
+                            fontFamily: 'monospace'
+                        }
+                    }
+                ],
+                animationDuration: 100,
+                animationEasing: 'linear',
+                animationEasingUpdate: 'linear'
+            };
+
+            function updateChart(data) {
+                option.series[0].data = Object.entries(data).map(function ([key, value]) {
+                    return [value, key]
+                });
+                myChart.setOption(option)
+            }
+
+            return updateChart
+        }
+
+        function createQ4Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                title: {
+                    text: '游戏目的',
+                    left: 'center'
+                },
+                legend: {
+                    top: 'bottom',
+                    left: 'center'
+                },
+                series: [
+                    {
+                        name: '游戏目的',
+                        type: 'pie',
+                        radius: [50, 100],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 25,
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: []
+                    }
+                ]
+            })
+
+            return (data) => {
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.wasted, name: '消磨时光' },
+                            { value: data.makeFun, name: '让自己心情愉悦' },
+                            { value: data.vent, name: '发泄情绪' },
+                            { value: data.proveSelfSix, name: '证明自己游戏技术很厉害' },
+                            { value: data.proveSelfSixToTripleSix, name: '证明自己不仅学得比别人好, 玩得也比别人好' },
+                            { value: data.proveSelfSixToTripleSix, name: '脱单' },
+                        ]
+                    }
+                }
+                chart.setOption(newOption)
+            }
+        }
+
+        function createQ5Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption( {
+                tooltip: {
+                    trigger: 'item'
+                },
+                title: {
+                    text: '看待收费',
+                    left: 'center',
+                    top: 'bottom'
+                },
+                legend: {
+                    top: '5%',
+                    left: 'center',
+                    // doesn't perfectly work with our tricks, disable it
+                    selectedMode: false
+                },
+                series: [
+                    {
+                        name: '看待收费',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        center: ['50%', '70%'],
+                        // adjust the start angle
+                        startAngle: 180,
+                        label: {
+                            show: true,
+                            formatter(param) {
+                                // correct the percentage
+                                return param.name + ' (' + param.percent * 2 + '%)';
+                            }
+                        },
+                        data: [   ]
+                    }
+                ]
+            })
+
+            return (data) => {
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.bad, name: '辣鸡游戏, 毁我青春' },
+                            { value: data.understand, name: '理解但依然白嫖' },
+                            { value: data.support, name: '表示支持' },
+                            { value: data.piracy, name: '下载盗版/破解游戏' },
+                            {
+                                // make an record to fill the bottom 50%
+                                value: data.bad + data.understand + data.support + data.piracy,
+                                itemStyle: {
+                                    // stop the chart from rendering this piece
+                                    color: 'none',
+                                    decal: {
+                                        symbol: 'none'
+                                    }
+                                },
+                                label: {
+                                    show: false
+                                }
+                            }
+                        ]
+                    }
+                }
+
+                chart.setOption(newOption)
+            }
+        }
+
+        function createQ6Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption(makeCommonPieOption('看待盗版', '看待盗版', []))
+
+            return (data) => {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.weakMind, name: '时代的潮流' },
+                            { value: data.nothing, name: '没有特别的想法' },
+                            { value: data.supportButUnderstand, name: '自己正版, 但理解盗版' },
+                            { value: data.supportAndResist, name: '坚决正版, 抵制盗版' },
+                            { value: data.nextTime, name: '下次一定' }
+                        ]
+                    }
+                }
+
+                chart.setOption(newOption)
+            }
+        }
+
+        function createQ7Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption({
+                title: {
+                    text: '限制游戏时长',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                series: [
+                    {
+                        name: '限制游戏时长',
+                        type: 'pie',
+                        radius: [40, 80],
+                        center: ['50%', '50%'],
+                        roseType: 'area',
+                        itemStyle: {
+                            borderRadius: 8
+                        },
+                        data: []
+                    }
+                ]
+            })
+
+            return (data) => {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.gameHasNothingGood, name: '应该被禁止' },
+                            { value: data.dialectical, name: '游戏是一把双刃剑' },
+                            { value: data.freedom, name: '玩多长是我的自由' },
+                            { value: data.totalShit, name: '开心泥巴嘘嘘' }
+                        ]
+                    }
+                }
+
+                chart.setOption(newOption)
+            }
+        }
+
+        function createQ8Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                title: {
+                    text: '游戏影响生活',
+                    left: 'center'
+                },
+                legend: {
+                    top: 'bottom',
+                    left: 'center'
+                },
+                series: [
+                    {
+                        name: '游戏影响生活',
+                        type: 'pie',
+                        radius: [50, 100],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 25,
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: []
+                    }
+                ]
+            })
+
+            return (data) => {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.totallyNot, name: '完全没有' },
+                            { value: data.goodInfluence, name: '劳逸结合' },
+                            { value: data.badInfluence, name: '游戏害人' },
+                            { value: data.underControl, name: '可控范围' },
+                            { value: data.insane, name: '劳资还能玩' }
+                        ]
+                    }
+                }
+
+                chart.setOption(newOption)
+            }
+        }
+
+        function createQ9Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                title: {
+                    text: '游戏影响成绩',
+                    left: 'center',
+                    top: 'bottom'
+                },
+                legend: {
+                    top: '5%',
+                    left: 'center',
+                    // doesn't perfectly work with our tricks, disable it
+                    selectedMode: false
+                },
+                series: [
+                    {
+                        name: '游戏影响成绩',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        center: ['50%', '70%'],
+                        // adjust the start angle
+                        startAngle: 180,
+                        label: {
+                            show: true,
+                            formatter(param) {
+                                // correct the percentage
+                                return param.name + ' (' + param.percent * 2 + '%)';
+                            }
+                        },
+                        data: [   ]
+                    }
+                ]
+            })
+
+            return (data) => {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.itsGamesFault, name: '成绩下降就肯定是游戏的锅' },
+                            { value: data.mainlySelfControl, name: '最重要的因素还是自制力' },
+                            { value: data.bothSupervision, name: '自律以及家校的监管等共同决定' },
+                            { value: data.noneOfBusiness, name: '这关游戏什么事' },
+                            { value: data.close, name: '关掉, 一定要关掉' },
+                            {
+                                // make an record to fill the bottom 50%
+                                value: data.itsGamesFault + data.mainlySelfControl + data.bothSupervision + data.noneOfBusiness + data.close,
+                                itemStyle: {
+                                    // stop the chart from rendering this piece
+                                    color: 'none',
+                                    decal: {
+                                        symbol: 'none'
+                                    }
+                                },
+                                label: {
+                                    show: false
+                                }
+                            }
+                        ]
+                    }
+                }
+
+                chart.setOption(newOption)
+            }
+        }
+
+        function createQ10Chart(containerId) {
+            let chart = initChartByID(containerId)
+
+            chart.setOption(makeCommonPieOption('自觉控制游戏时长', '自觉控制游戏时长', []))
+
+            return (data) => {
+
+                let newOption = {
+                    series: {
+                        data: [
+                            { value: data.neverPlaying, name: '从不玩游戏' },
+                            { value: data.onlyRealex, name: '只放松不沉迷' },
+                            { value: data.sometimesOver, name: '偶尔过度不影响生活' },
+                            { value: data.asLongAsIdle, name: '闲下来就打' },
+                            { value: data.liveOnIt, name: '以游戏为生' },
+                            { value: data.allDay, name: '一天 25 个小时' }
+                        ]
+                    }
+                }
+
+                chart.setOption(newOption)
+            }
+        }
+
+        let figure1update = createQ1Chart('figure1')
+        let figure2update = createQ2Chart('figure2')
+        let figure3update = createDynamicBarChart('figure3')
+        let figure4update = createQ4Chart('figure4')
+        let figure5update = createQ5Chart('figure5')
+        let figure6update = createQ6Chart('figure6')
+        let figure7update = createQ7Chart('figure7')
+        let figure8update = createQ8Chart('figure8')
+        let figure9update = createQ9Chart('figure9')
+        let figure10update = createQ10Chart('figure10')
+
+        initFigureWthInitData()
+
+        function initFigureWthInitData() {
+            let initData = {
+                q1: {
+                    played: 1,
+                    all: 2
+                },
+                q2: {
+                    never: 1,
+                    seldom: 1,
+                    monthly: 1,
+                    weekly: 1,
+                    daily:1,
+                    nome: 1
+                },
+                q3: {
+                    "moba": 1,
+                    "mg": 1,
+                    "rpg": 1,
+                    "pixel": 1,
+                    "sandbox": 1,
+                    "genshin": 1,
+                    "threeA": 1,
+                    "together": 1,
+                    "teri": 1,
+                    "action": 1,
+                    "chiji": 1,
+                    "fps": 1,
+                    "ci": 1,
+                    "fgo": 1,
+                    "chess": 1,
+                    "social": 1,
+                    "intel": 1,
+                    "com": 1,
+                    "run": 1,
+                    "zvp": 1,
+                    "story": 1,
+                    "gg": 1,
+                    "other": 1
+                },
+                q4: {
+                    wasted: 1,
+                    makeFun: 1,
+                    vent: 1,
+                    proveSelfSix: 1,
+                    proveSelfSixToTripleSix: 1,
+                    getRidOfDog: 1
+                },
+                q5: {
+                    bad: 1,
+                    understand: 1,
+                    support: 1,
+                    piracy: 1
+                },
+                q6: {
+                    weakMind: 1,
+                    nothing: 1,
+                    supportButUnderstand: 1,
+                    supportAndResist: 1,
+                    nextTime: 1
+                },
+                q7: {
+                    gameHasNothingGood: 1,
+                    dialectical: 1,
+                    freedom: 1,
+                    totalShit: 1
+                },
+                q8: {
+                    totallyNot: 1,
+                    goodInfluence: 1,
+                    badInfluence: 1,
+                    underControl: 1,
+                    insane: 1
+                },
+                q9: {
+                    itsGamesFault: 1,
+                    mainlySelfControl: 1,
+                    bothSupervision: 1,
+                    noneOfBusiness: 1,
+                    close: 1
+                },
+                q10: {
+                    neverPlaying: 1,
+                    onlyRealex: 1,
+                    sometimesOver: 1,
+                    asLongAsIdle: 1,
+                    liveOnIt: 1,
+                    allDay: 1
+                }
+            }
+
+            figure1update(initData.q1)
+            figure2update(initData.q2)
+            figure3update(initData.q3)
+            figure4update(initData.q4)
+            figure5update(initData.q5)
+            figure6update(initData.q6)
+            figure7update(initData.q7)
+            figure8update(initData.q8)
+            figure9update(initData.q9)
+            figure10update(initData.q10)
+        }
+
+        setInterval(() => {
+            $.getJSON('/api/qall', (data) => {
+                figure1update(data.q1)
+                figure2update(data.q2)
+                figure3update(data.q3)
+                figure4update(data.q4)
+                figure5update(data.q5)
+                figure6update(data.q6)
+                figure7update(data.q7)
+                figure8update(data.q8)
+                figure9update(data.q9)
+                figure10update(data.q10)
+            })
+        }, 3000)
+
+
+    </script>
+</body>
+</html>

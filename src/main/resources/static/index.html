@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">不会吧不会吧</title>
+
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/form.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+
+    <div class="ui container" id="main">
+<!--        <div id="header" class="ui raised very padded text container segment">-->
+        <div class="header" id="header" style="margin-bottom: 35px; margin-top: 20px">
+            <img src="img/LOGO-survey.png" class="ui large image" alt="survey">
+        </div>
+
+<!--        </div>-->
+
+        <form class="ui form" action="p" method="POST">
+            <div class="field">
+                <label>君の名字</label>
+                <div class="ui action input">
+                    <input name="name" id="name-input" type="text" placeholder="起名字什么的最头疼了, 幸好这里可以">
+                    <button id="randomNameBtn" class="ui button">随便编一个名字</button>
+                </div>
+            </div>
+            <div class="required field">
+                <label>年龄</label>
+                <label>
+                    <input name="age" type="text" placeholder="不会真的有人填真实年龄吧(">
+                </label>
+            </div>
+
+            <div class="required field">
+                <label>学历</label>
+                <div class="ui selection dropdown">
+                    <input name="education" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">生鱼忧患，死鱼安乐</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">胎教</div>
+                        <div class="item" data-value="1">幼儿园</div>
+                        <div class="item" data-value="2">小学</div>
+                        <div class="item" data-value="3">中学</div>
+                        <div class="item" data-value="4">本科</div>
+                        <div class="item" data-value="5">硕士</div>
+                        <div class="item" data-value="6">博士</div>
+                        <div class="item" data-value="7">博士后</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>性别</label>
+                <div class="ui selection dropdown">
+                    <input name="gender" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text"> <s>谁说马猴烧酒一定得是女孩子)</s> </div>
+                    <div class="menu">
+                        <div class="item" onclick="onGenderMale()" data-value="0">男</div>
+                        <div class="item" onclick="onGenderFemale()" data-value="1">女</div>
+                        <div class="item" onclick="onGenderCat()" data-value="2">薛定谔的猫</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="ui horizontal divider">
+                下面是废话想看可以看
+            </h4>
+
+            <div class="ui info message">
+                <div class="content">
+                    <p class="header" style="text-indent: 30px">
+                        您好, 为了解当代学生群体玩电子游戏的情况
+                        <s>实际上是为了完成作业, </s>
+                        我们发起了一个相关的问卷调查, 诚挚地邀请您抽出宝贵的时间协助我们完成这个问卷, 十分感谢
+                        <br>
+                        <br>
+                        以下为声明和条款
+                    </p>
+                    <ul class="list">
+                        <li>
+                            填写该问卷调查<b>不会</b>泄露您的任何隐私
+                        </li>
+                        <li>
+                            为了调查结果的真实性和准确性, 尽量做到<b>如实回答</b>
+                        </li>
+                        <li>
+                            问卷的选项隐藏在下拉菜单内, 只需要在下拉菜单中选择认为合适的选项
+                        </li>
+                        <li>
+                            如果遇被下拉选项遮挡而无法下滑的情况, 点击空白处即可
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4 class="ui horizontal divider">
+                上面是废话不想看可以不看
+            </h4>
+
+            <div class="required field">
+                <label>是否玩过电子游戏</label>
+                <div class="ui selection dropdown">
+                    <input name="q1" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">这不是废话吗</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">玩过</div>
+                        <div class="item" data-value="1">从没</div>
+<!--                        <div class="item" data-value="2">能吃吗</div>-->
+<!--                        <div class="item" data-value="3">不会吧不会吧不会真的有人没玩过游戏吧</div>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>游玩电子游戏的平均频率</label>
+                <div class="ui selection dropdown">
+                    <input name="q2" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">大部分应该都是每天都玩</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">很少，几乎不玩</div>
+                        <div class="item" data-value="1">不多，两三个月一次</div>
+                        <div class="item" data-value="2">一般般，一个月两三次</div>
+                        <div class="item" data-value="3">多一点， 一周几次吧</div>
+                        <div class="item" data-value="4">一天不打几个小时都手痒痒</div>
+                        <div class="item" data-value="5">女朋友是什么，有游戏重要吗</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>喜欢游玩电子游戏的类型</label>
+                <select name="q3" class="ui dropdown" multiple="">
+                    <option value="">原神启动!</option>
+                    <option value="moba">moba/英雄联盟/王者荣耀</option>
+                    <option value="mg">音游/节奏大师/钢琴块/喵斯快跑/Phigros/蛇</option>
+                    <option value="rpg">RPG/角色扮演/undertale</option>
+                    <option value="pixel">像素游戏/去月球/House</option>
+                    <option value="sandbox">沙盒游戏/Minecraft/泰拉瑞亚</option>
+                    <option value="genshin">原神/星穹铁道/崩坏</option>
+                    <option value="3a">3A大作</option>
+                    <option value="together">多人合作/胡闹厨房/双人成行</option>
+                    <option value="teri">恐怖游戏/玩具熊的五夜后宫/逃生</option>
+                    <option value="action">动作冒险/GTA/圣安地列斯/生化危机</option>
+                    <option value="chiji">第三人称射击游戏/和平精英</option>
+                    <option value="fps">第一人称射击游戏/CSGO</option>
+                    <option value="ci">角色养成/神奇宝贝/奇迹暖暖</option>
+                    <option value="fgo">抽卡游戏/FGO/明日方舟</option>
+                    <option value="chess">棋牌游戏/象棋/斗地主/雀魂麻将/三国杀</option>
+                    <option value="social">社交游戏/(太空)狼人杀/猛兽派对</option>
+                    <option value="intel">益智游戏/2048</option>
+                    <option value="com">模拟经营/模拟人生</option>
+                    <option value="run">跑酷/神庙逃亡</option>
+                    <option value="zvp">策略游戏/植物大战僵尸/消消乐</option>
+                    <option value="story">就是下来看剧情的</option>
+                    <option value="gg">galgame</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+
+            <div class="required field">
+                <label>玩游戏的目的</label>
+                <div class="ui selection dropdown">
+                    <input name="q4" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">想玩就玩</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">消磨时光</div>
+                        <div class="item" data-value="1">让自己心情愉悦</div>
+                        <div class="item" data-value="2">发泄情绪</div>
+                        <div class="item" data-value="3">证明自己游戏技术很厉害</div>
+                        <div class="item" data-value="4">证明自己不仅学得比别人好, 玩得也比别人好</div>
+                        <div class="item" data-value="5">脱单</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>如何看待游戏收费</label>
+                <div class="ui selection dropdown">
+                    <input name="q5" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">大人, 时代变了</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">辣鸡游戏, 毁我青春</div>
+                        <div class="item" data-value="1">表示理解, 但是依然白嫖</div>
+                        <div class="item" data-value="2">表示支持, 只有这样才能促进更好作品的诞生</div>
+                        <div class="item" data-value="3">去下载盗版/破解游戏</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>如何看待盗版/破解游戏</label>
+                <div class="ui selection dropdown">
+                    <input name="q6" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">这是白嫖既遂</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">大多数人都用盗版, 这是时代的潮流</div>
+                        <div class="item" data-value="1">没有特别的想法</div>
+                        <div class="item" data-value="2">自己使用正版, 但对盗版破解的人表示理解</div>
+                        <div class="item" data-value="3">坚决支持正版, 鄙视盗版/破解游戏的行为, 盗版/破解游戏是对开发者的不尊重</div>
+                        <div class="item" data-value="4">下次一定</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>是否觉得游戏时长应该被限制</label>
+                <div class="ui selection dropdown">
+                    <input name="q7" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">反正已经被限制了</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">应该被禁止, 游戏简直在毒害祖国的花朵</div>
+                        <div class="item" data-value="1">确实, 游戏是一把双刃剑, 要合理支配时长</div>
+                        <div class="item" data-value="2">不应该, 玩多长是我的自由, 别人无权干涉</div>
+                        <div class="item" data-value="3">funny mud pee</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>是否觉得游戏影响了你的生活</label>
+                <div class="ui selection dropdown">
+                    <input name="q8" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">游戏使我快乐</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">完全没有</div>
+                        <div class="item" data-value="1">有好的影响, 游戏使我劳逸结合</div>
+                        <div class="item" data-value="2">有坏的影响, 游戏害了我</div>
+                        <div class="item" data-value="3">有影响, 但是在我的可控范围内</div>
+                        <div class="item" data-value="4">别拦着我, 劳资还能玩</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>是否认为游戏是导致学生成绩下滑的主要原因</label>
+                <div class="ui selection dropdown">
+                    <input name="q9" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">人在家中坐, 锅从天上来</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">是的, 只要成绩下降就肯定是游戏的锅</div>
+                        <div class="item" data-value="1">游戏并不占据主导, 最重要的因素还是自制力</div>
+                        <div class="item" data-value="2">由游戏和学生的自律以及家校的监管等共同决定</div>
+                        <div class="item" data-value="3">胡扯, 这关游戏什么事</div>
+                        <div class="item" data-value="4">关掉, 一定要关掉</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>是否能自觉控制游戏时长</label>
+                <div class="ui selection dropdown">
+                    <input name="q10" type="hidden">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">玩游戏的时间总是过得很快</div>
+                    <div class="menu">
+                        <div class="item" data-value="0">非也, 因为我从不玩游戏</div>
+                        <div class="item" data-value="1">是的, 我只会用游戏来放松，并不沉迷</div>
+                        <div class="item" data-value="2">偶尔会过度, 但不影响正常生活</div>
+                        <div class="item" data-value="3">只要闲下来就打, 但基本不影响正常生活</div>
+                        <div class="item" data-value="4">游戏是我的主业, 我以游戏为生</div>
+                        <div class="item" data-value="5">一天 25 个小时都不够我打游戏</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="ui horizontal divider">
+                这条分割线分割了您的理想和现实
+            </h4>
+
+            <div id="ending" class="ui olive message">
+                <br>
+                <h2 class="ui header" id="sign"></h2>
+                <br>
+                <img class="ui medium image" src="img/qb.png" alt="QB" />
+
+                <br>
+
+<!--                <p>-->
+<!--                    抵制不良游戏, 拒绝盗版游戏。<br>-->
+<!--                    注意自我保护, 谨防受骗上当。<br>-->
+<!--                    适度游戏益脑, 沉迷游戏伤身。<br>-->
+<!--                    合理安排时间, 享受健康生活。<br>-->
+<!--                </p>-->
+            </div>
+
+            <div style="margin: auto; width: 100%" id="submit" class="ui buttons">
+                <button class="compact ui button" type="submit">提交</button>
+                <div class="or"></div>
+                <button class="compact ui positive  button" type="submit">都填到这里了就提交呗</button>
+                <div class="or"></div>
+                <button class="compact ui button" type="submit"> <s>签订契约</s> </button>
+            </div>
+
+            <div class="ui error message" style="text-align: center">坏!契约签订失败!</div>
+
+        </form>
+
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+    <div class="ui inverted segment" id="bottom-set">
+        <p>By whiterasbk</p>
+        <h4 class="ui horizontal divider">and</h4>
+        <p>All lefts reserved</p>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/typeit/8.7.1/index.umd.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/form.js"></script>
+
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

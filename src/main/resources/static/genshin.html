@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原神启动</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #start {
+            animation: fadeIn 6s forwards;
+        }
+
+    </style>
+</head>
+<body>
+    <img id="start" style="width: 100%; margin: 0 auto" class="ui large image" src="img/ysqd.svg" />
+    <div id="btn" style="display: none" class="ui right floated green right labeled icon button" onclick="checkData()">
+        <i class="right arrow icon"></i>查看数据
+    </div>
+    <script>
+        setTimeout(() => {
+            document.querySelector('#btn').style.display = 'inline'
+        }, 6000)
+
+        function checkData() {
+            window.location.href = '/static/data.html'
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+#bottom-set {
+    border-radius: 0;
+    margin: 0;
+}
+
+#bottom-set p {
+    text-align: center;
+}
+
+#bottom-set .divider {
+    color: whitesmoke;
+}
+
+#main {
+    margin-top: 2rem;
+}
+
+#ending, #header {
+    text-align: center;
+}
+
+#header img, #ending img {
+    margin: 0 auto;
+}
+
+#submit {
+    margin: 0 auto;
+}

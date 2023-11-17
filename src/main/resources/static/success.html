@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提交成功</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.css">
+</head>
+<body>
+
+    <div class="container" style="margin: 20px 13px; text-align: center">
+        <div class="ui success message" >
+
+            <div class="ui accordion">
+                <div class="title">
+                    <h3><i class="dropdown icon"></i>您已经完成问卷</h3>
+                </div>
+                <div class="content">
+                    <div class="container" style="padding-top: 15px">
+                        <img class="ui medium image" style="margin: 0 auto" src="img/ffgs.jpg" alt="ffgs">
+                    </div>
+                </div>
+            </div>
+
+            <p id="think"></p>
+        </div>
+
+        <div class="ui right floated green right labeled icon button" onclick="checkData()">
+            <i class="right arrow icon"></i>查看数据
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/typeit/8.7.1/index.umd.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script>
+        $('.ui.accordion').accordion()
+
+        function checkData() {
+            window.location.href = '/static/data.html'
+        }
+
+        new TypeIt('#think', {
+            speed: 100,
+            startDelay: 900,
+            waitUntilVisible: true,
+            loop: true
+        })
+            .type('我们不需要知道电子游戏是什么', { delay: 1000 })
+            .pause(500)
+            .type('<br>它会不会造成近视, ', { delay: 1000 })
+            .pause(500)
+            .type('会不会成瘾', { delay: 1000 })
+            .delete(100)
+            .pause(1000)
+            .type('我们只需要一个背锅侠', { delay: 1000 })
+            .pause(1000)
+            .delete(100)
+            .type('一个可以掩盖家庭教育失败', { delay: 1000 })
+            .pause(1000)
+            .delete(100)
+            .type('学校教育失败', { delay: 1000 })
+            .pause(1000)
+            .delete(100)
+            .type('社会教育失败的东西', { delay: 1000 })
+            .pause(1000)
+            .delete(100)
+            .type('现在它叫游戏', { delay: 1000 })
+            .pause(1000)
+            .type('<br>十五年前它是早恋', { delay: 1000 })
+            .pause(1000)
+            .type('<br>三十年前它是偶像', { delay: 1000 })
+            .pause(1000)
+            .type('<br>三十五年前它是香港电影', { delay: 1000 })
+            .pause(1000)
+            .type('<br>四十年前它是武侠小说', { delay: 1000 })
+            .pause(5000)
+            .go()
+    </script>
+</body>
+</html>
